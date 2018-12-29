@@ -58,3 +58,19 @@ public extension CGFloat {
         return (self * 100).rounded() / 100
     }
 }
+
+public extension Int {
+
+    public var degrees: Measurement<UnitAngle> {
+
+        return Double(self).degrees
+    }
+}
+
+public extension Double {
+
+    public var degrees: Measurement<UnitAngle> {
+
+        return Measurement(value: self, unit: .degrees)
+    }
+}

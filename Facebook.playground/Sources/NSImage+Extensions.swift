@@ -43,4 +43,23 @@ public extension NSImage {
         )
     }
 
+    public func rotated(_ angle: Measurement<UnitAngle>) -> NSImage {
+
+        var imageRect = CGRect(origin: .zero, size: size)
+
+        let cgImage = self.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
+
+        let imageRotator = IKImageView()
+
+        let radsAngle = angle.converted(to: .radians)
+
+        imageRotator.setImage(cgImage, imageProperties: [:])
+        imageRotator.rotationAngle = CGFloat(radsAngle.value)
+
+        let rotatedCGImage = imageRotator.image().takeUnretainedValue()
+
+        let image = NSImage(cgImage: rotatedCGImage, size: imageRect.size)
+
+        return image
+    }
 }
