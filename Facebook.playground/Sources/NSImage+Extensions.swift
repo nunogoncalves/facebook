@@ -59,7 +59,26 @@ public extension NSImage {
         let rotatedCGImage = imageRotator.image().takeUnretainedValue()
 
         let image = NSImage(cgImage: rotatedCGImage, size: imageRect.size)
+        print(image.size)
 
         return image
+    }
+
+    public func zoomedPage1(by zoom: Double) -> NSImage {
+
+        let cgFloatZoom = CGFloat(zoom)
+        let frame = size.times(zoom).framed
+        let dx: CGFloat = (size.width - ((size.width * cgFloatZoom))) / 2
+        let dy: CGFloat = (size.height - ((size.height * cgFloatZoom))) / 2
+
+        return NSImage(size: size, flipped: false) { _ in
+
+            return self.bestRepresentation(
+                for: .zero,
+                context: nil,
+                hints: nil
+            )!
+            .draw(in: frame.offsetBy(dx: dx, dy: dy))
+        }
     }
 }

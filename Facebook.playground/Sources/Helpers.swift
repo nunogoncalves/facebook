@@ -1,4 +1,5 @@
 import Foundation
+import Cocoa
 
 public struct LineSegment {
     public let startPoint: CGPoint
@@ -59,6 +60,15 @@ public extension CGFloat {
     }
 }
 
+public extension Double {
+
+    public var oneDecimal: Double {
+
+        return (self * 100).rounded() / 100
+    }
+}
+
+
 public extension Int {
 
     public var degrees: Measurement<UnitAngle> {
@@ -73,4 +83,25 @@ public extension Double {
 
         return Measurement(value: self, unit: .degrees)
     }
+}
+
+public extension CGSize {
+
+    public func rotated(_ degrees: Measurement<UnitAngle>) -> CGSize {
+
+        //Use math instead of importing AppKit for these calculations
+        let view = NSView(frame: CGRect(origin: .zero, size: self))
+        view.rotate(byDegrees: CGFloat(degrees.value))
+        return view.bounds.size
+    }
+
+    public func times(_ multiplier: Double) -> CGSize {
+        return CGSize(width: width * CGFloat(multiplier), height: height * CGFloat(multiplier))
+    }
+
+    public func devided(_ multiplier: CGFloat) -> CGSize {
+        return CGSize(width: width / CGFloat(multiplier), height: height / CGFloat(multiplier))
+    }
+
+    public var framed: CGRect { return CGRect(origin: .zero, size: self) }
 }
