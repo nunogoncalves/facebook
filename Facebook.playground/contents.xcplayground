@@ -6,5 +6,6 @@
         <page name='3-Zoom'/>
         <page name='4-AnalysingImages'/>
         <page name='5-Resize'/>
+        <page name='6-Crop'/>
     </pages>
 </playground>
