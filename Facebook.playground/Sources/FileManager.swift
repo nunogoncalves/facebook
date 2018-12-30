@@ -7,6 +7,13 @@ public let playgroundDirectory = Bundle.main.url(forResource: "token", withExten
     .deletingLastPathComponent()
     .deletingLastPathComponent()
 
+public let refImage = NSImage(
+    contentsOf: FileManager.default
+        .images(in: playgroundDirectory)
+        .first { $0.lastPathComponent == "reference.jpg" }!
+)!
+
+
 extension FileManager {
 
     public func files(in url: URL) -> [URL] {
@@ -25,5 +32,24 @@ extension FileManager {
 }
 
 public func save(_ image: NSImage, to url: URL) throws {
+
+    let path = url.deletingLastPathComponent()
+
+    if !FileManager.default.fileExists(atPath: path.absoluteString) {
+        try FileManager.default.createDirectory(at: path, withIntermediateDirectories: true, attributes: nil)
+    }
+
     try image.data(ofType: .jpeg, compression: 0.3)?.write(to: url, options: .atomic)
+}
+
+public func save(_ ciImage: CIImage, to url: URL) throws {
+    try save(ciImage.nsImage(sized: ciImage.extent.size), to: url)
+}
+
+public extension URL {
+
+    func appending(name: String) -> URL {
+
+        return URL(fileURLWithPath: name, relativeTo: self)
+    }
 }

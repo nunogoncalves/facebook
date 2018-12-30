@@ -6,9 +6,6 @@ let imagesUrls = FileManager.default.images(in: playgroundDirectory)
 var zoomUrl = playgroundDirectory
 zoomUrl.appendPathComponent("zoom/?")
 
-let refImageURL = imagesUrls.first { $0.lastPathComponent == "reference.jpg" }!
-let refImage = NSImage(contentsOf: refImageURL)!
-
 for i in 0...20 {
 
     let zoom = Double(Float(i) / 10).oneDecimal

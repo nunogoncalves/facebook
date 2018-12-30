@@ -8,6 +8,8 @@ public extension NSImage {
         return self.cgImage(forProposedRect: nil, context: nil, hints: nil)!
     }
 
+    public var ciImage: CIImage { return CIImage(data: tiffRepresentation!)! }
+
     public func jpgWrite(to url: URL, options: Data.WritingOptions = .atomic) throws {
         try data(ofType: .jpeg, compression: 0.3)?.write(to: url, options: options)
     }
@@ -43,7 +45,7 @@ public extension NSImage {
         )
     }
 
-    public func rotated(_ angle: Measurement<UnitAngle>) -> NSImage {
+    public func rotatedUsingIKImageView(_ angle: Measurement<UnitAngle>) -> NSImage {
 
         var imageRect = CGRect(origin: .zero, size: size)
 
@@ -64,6 +66,24 @@ public extension NSImage {
         return image
     }
 
+    public func rotatedUsingCIImage(_ degrees: Measurement<UnitAngle>) -> NSImage? {
+
+        let ciImage = CIImage(data: self.tiffRepresentation!)!
+        //https://developer.apple.com/library/archive/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html#//apple_ref/doc/filter/ci/CIStraightenFilter
+        let rotated = ciImage.applyingFilter(
+            "CIStraightenFilter",
+            parameters: [kCIInputAngleKey: degrees.rads]
+        )
+        print(rotated.extent)
+
+        let representation = NSCIImageRep(ciImage: rotated)
+        print(representation.size)
+        let nsImage = NSImage(size: representation.size)
+        nsImage.addRepresentation(representation)
+
+        return nsImage
+    }
+
     public func zoomedPage1(by zoom: Double) -> NSImage {
 
         let cgFloatZoom = CGFloat(zoom)
@@ -80,5 +100,16 @@ public extension NSImage {
             )!
             .draw(in: frame.offsetBy(dx: dx, dy: dy))
         }
+    }
+}
+
+public extension CIImage {
+
+    public func nsImage(sized size: CGSize) -> NSImage {
+
+        let representation = NSCIImageRep(ciImage: self)
+        let nsImage = NSImage(size: size.devided(2))
+        nsImage.addRepresentation(representation)
+        return nsImage
     }
 }

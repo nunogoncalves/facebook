@@ -7,5 +7,7 @@
         <page name='4-AnalysingImages'/>
         <page name='5-Resize'/>
         <page name='6-Crop'/>
+        <page name='7-RotateAndCrop'/>
+        <page name='8-CIFilters'/>
     </pages>
 </playground>

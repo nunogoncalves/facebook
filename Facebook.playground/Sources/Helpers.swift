@@ -85,6 +85,14 @@ public extension Double {
     }
 }
 
+public extension Measurement where UnitType == UnitAngle {
+
+    public var rads: Measurement<UnitAngle> {
+
+        return self.converted(to: .radians)
+    }
+}
+
 public extension CGSize {
 
     public func rotated(_ degrees: Measurement<UnitAngle>) -> CGSize {
@@ -104,4 +112,18 @@ public extension CGSize {
     }
 
     public var framed: CGRect { return CGRect(origin: .zero, size: self) }
+}
+
+public extension CGAffineTransform {
+    public init(rotationDegrees degrees: Measurement<UnitAngle>) {
+        self.init(rotationAngle: CGFloat(degrees.rads.value))
+    }
+}
+
+public extension CGRect {
+
+    var center: CGPoint {
+
+        return CGPoint(x: width / 2, y: height / 2)
+    }
 }
