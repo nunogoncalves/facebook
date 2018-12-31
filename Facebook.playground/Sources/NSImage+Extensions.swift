@@ -101,6 +101,30 @@ public extension NSImage {
             .draw(in: frame.offsetBy(dx: dx, dy: dy))
         }
     }
+
+    public func resized(to targetSize: NSSize) -> NSImage? {
+
+        let frame = NSRect(origin: .zero, size: targetSize)
+
+        guard let representation = self.bestRepresentation(for: frame, context: nil, hints: nil) else {
+            return nil
+        }
+
+        let image = NSImage(size: targetSize, flipped: false) { _ in
+            return representation.draw(in: frame)
+        }
+        return image
+    }
+
+    public func resizeMaintainingAspectRatio(to targetSize: NSSize) -> NSImage? {
+
+        let testSize = self.size
+
+        let testRatio = testSize.width / testSize.height
+
+        let newTestSize = CGSize(width: targetSize.height * testRatio, height: targetSize.height)
+        return self.resized(to: newTestSize)
+    }
 }
 
 public extension CIImage {
@@ -111,5 +135,10 @@ public extension CIImage {
         let nsImage = NSImage(size: size.devided(2))
         nsImage.addRepresentation(representation)
         return nsImage
+    }
+
+    public func blurred(withRadius radius: Int) -> CIImage {
+
+        return applyingFilter("CIGaussianBlur", parameters: [kCIInputRadiusKey: radius])
     }
 }

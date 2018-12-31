@@ -9,5 +9,7 @@
         <page name='6-Crop'/>
         <page name='7-RotateAndCrop'/>
         <page name='8-CIFilters'/>
+        <page name='9-Translation'/>
+        <page name='10-Overlap'/>
     </pages>
 </playground>

@@ -3,11 +3,7 @@ import Cocoa
 import AppKit
 
 let imagesUrls = FileManager.default.images(in: playgroundDirectory)
-
-let refImageURL = imagesUrls.first { $0.lastPathComponent == "reference.jpg" }!
 let testingImageURL = imagesUrls.first { $0.lastPathComponent.starts(with: "testImage") }!
-
-let refImage = NSImage(contentsOf: refImageURL)!
 let testingImage = NSImage(contentsOf: testingImageURL)!
 
 _ = Analyser(image: refImage) { refReport in
