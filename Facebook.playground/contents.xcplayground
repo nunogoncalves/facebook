@@ -11,5 +11,6 @@
         <page name='8-CIFilters'/>
         <page name='9-Translation'/>
         <page name='10-Overlap'/>
+        <page name='11-Tests'/>
     </pages>
 </playground>

@@ -38,7 +38,8 @@ _ = Analyser(image: refImage) { refReport in
 
             let zoomComparison = testResizedZoomReport.compare(against: refReport, comparing: .pupils)
 
-            let blur = testResizedZoomed.blurred(withRadius: 20).cropped(to: ciRefImage.extent)
+            let blur = testResizedZoomed
+                .blurred(withRadius: 20).cropped(to: ciRefImage.extent)
 
             let translation = CGAffineTransform(
                 translationX: -zoomComparison.secondToFirstXOffset,

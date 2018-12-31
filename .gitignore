@@ -1,0 +1,7 @@
+*.xcuserstate
+*.xctimeline
+/tests/
+/sourceImagesBianca/
+/sourceImagesNuno/
+/resultsBianca/
+/resultsNuno/
