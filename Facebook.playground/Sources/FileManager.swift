@@ -13,6 +13,12 @@ public let refImage = NSImage(
         .first { $0.lastPathComponent == "reference.jpg" }!
 )!
 
+public let refImageBianca = NSImage(
+    contentsOf: FileManager.default
+        .images(in: playgroundDirectory)
+        .first { $0.lastPathComponent == "referenceBianca.jpg" }!
+    )!
+
 
 extension FileManager {
 
@@ -31,7 +37,7 @@ extension FileManager {
     }
 }
 
-public func save(_ image: NSImage, to url: URL) throws {
+public func save(_ image: NSImage, to url: URL, compression: Float = 0.3) throws {
 
     let path = url.deletingLastPathComponent()
 
@@ -39,11 +45,11 @@ public func save(_ image: NSImage, to url: URL) throws {
         try FileManager.default.createDirectory(at: path, withIntermediateDirectories: true, attributes: nil)
     }
 
-    try image.data(ofType: .jpeg, compression: 0.3)?.write(to: url, options: .atomic)
+    try image.data(ofType: .jpeg, compression: compression)?.write(to: url, options: .atomic)
 }
 
-public func save(_ ciImage: CIImage, to url: URL) throws {
-    try save(ciImage.nsImage(sized: ciImage.extent.size), to: url)
+public func save(_ ciImage: CIImage, to url: URL, compression: Float = 0.3) throws {
+    try save(ciImage.nsImage(sized: ciImage.extent.size), to: url, compression: compression)
 }
 
 public extension URL {

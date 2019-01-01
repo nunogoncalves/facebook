@@ -16,8 +16,6 @@ public struct Processor {
         var refReport: FaceReport!
         _ = Analyser(image: refImage) { refReport = $0 }
         self.referenceReport = refReport
-
-
     }
 
     public func processed(_ image: NSImage) -> NSImage {

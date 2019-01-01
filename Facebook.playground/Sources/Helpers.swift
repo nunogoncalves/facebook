@@ -127,3 +127,15 @@ public extension CGRect {
         return CGPoint(x: width / 2, y: height / 2)
     }
 }
+
+public extension Array {
+
+    ///Implementation defaults to ascending (<=)
+    public func sorted<PropertyType: Comparable>(
+        by keyPath: KeyPath<Element, PropertyType>,
+        comparison: (PropertyType, PropertyType) -> Bool = { $0 <= $1 }
+    ) -> Array {
+
+        return sorted { comparison($0[keyPath: keyPath], $1[keyPath: keyPath]) }
+    }
+}
