@@ -8,6 +8,10 @@ let imagesURLs = FileManager.default
     .sorted(by: \.lastPathComponent)
 
 refImageBianca
+
+var refRep: FaceReport!
+Analyser(image: refImageBianca) { report in print(report.description); refRep = report }
+
 let processor = Processor2(referenceImage: refImageBianca)
 
 let start = Date()
@@ -37,6 +41,15 @@ for url in imagesURLs {
 
     let startImage = Date()
     let image = NSImage(contentsOf: url)!
+
+    let rep = Analyser(image: image) { report in
+        print(report.description)
+
+        print("!!!")
+
+        report.describeComparison(against: refRep)
+    }
+
     let processedImage = processor.processed(image)
 
     var name = url.lastPathComponent

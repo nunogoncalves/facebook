@@ -15,5 +15,6 @@
         <page name='11-TestsWithoutResizeNuno'/>
         <page name='12-TextToImage'/>
         <page name='13-Bianca'/>
+        <page name='14-Dropbox'/>
     </pages>
 </playground>
