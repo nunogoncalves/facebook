@@ -6,19 +6,18 @@ public extension Array where Element == CGPoint {
 
         let bezierPath = NSBezierPath()
 
-        guard self.isEmpty == false else { return bezierPath }
+        guard isEmpty == false else { return bezierPath }
 
-        bezierPath.move(to: self.first!)
+        bezierPath.move(to: first!)
 
-        guard self.first != self.last else {
-
+        guard count != 1 else {
             bezierPath.close()
             return bezierPath
         }
 
-        let withoutEdges = self.dropFirst()
+        let withoutEdges = Array(self.dropFirst())
 
-        Array(withoutEdges).forEach { bezierPath.line(to: $0) }
+        withoutEdges.forEach { bezierPath.line(to: $0) }
 
         bezierPath.line(to: self.last!)
         bezierPath.close()
