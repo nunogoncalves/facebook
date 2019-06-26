@@ -54,7 +54,7 @@ public extension CGPoint {
 
 public extension CGFloat {
 
-    public var oneDecimal: CGFloat {
+    var oneDecimal: CGFloat {
 
         return (self * 100).rounded() / 100
     }
@@ -62,7 +62,7 @@ public extension CGFloat {
 
 public extension Double {
 
-    public var oneDecimal: Double {
+    var oneDecimal: Double {
 
         return (self * 100).rounded() / 100
     }
@@ -71,7 +71,7 @@ public extension Double {
 
 public extension Int {
 
-    public var degrees: Measurement<UnitAngle> {
+    var degrees: Measurement<UnitAngle> {
 
         return Double(self).degrees
     }
@@ -79,7 +79,7 @@ public extension Int {
 
 public extension Double {
 
-    public var degrees: Measurement<UnitAngle> {
+    var degrees: Measurement<UnitAngle> {
 
         return Measurement(value: self, unit: .degrees)
     }
@@ -87,7 +87,7 @@ public extension Double {
 
 public extension Measurement where UnitType == UnitAngle {
 
-    public var rads: Measurement<UnitAngle> {
+    var rads: Measurement<UnitAngle> {
 
         return self.converted(to: .radians)
     }
@@ -95,7 +95,7 @@ public extension Measurement where UnitType == UnitAngle {
 
 public extension CGSize {
 
-    public func rotated(_ degrees: Measurement<UnitAngle>) -> CGSize {
+    func rotated(_ degrees: Measurement<UnitAngle>) -> CGSize {
 
         //Use math instead of importing AppKit for these calculations
         let view = NSView(frame: CGRect(origin: .zero, size: self))
@@ -103,19 +103,19 @@ public extension CGSize {
         return view.bounds.size
     }
 
-    public func times(_ multiplier: Double) -> CGSize {
+    func times(_ multiplier: Double) -> CGSize {
         return CGSize(width: width * CGFloat(multiplier), height: height * CGFloat(multiplier))
     }
 
-    public func devided(_ multiplier: CGFloat) -> CGSize {
+    func devided(_ multiplier: CGFloat) -> CGSize {
         return CGSize(width: width / CGFloat(multiplier), height: height / CGFloat(multiplier))
     }
 
-    public var framed: CGRect { return CGRect(origin: .zero, size: self) }
+    var framed: CGRect { return CGRect(origin: .zero, size: self) }
 }
 
 public extension CGAffineTransform {
-    public init(rotationDegrees degrees: Measurement<UnitAngle>) {
+    init(rotationDegrees degrees: Measurement<UnitAngle>) {
         self.init(rotationAngle: CGFloat(degrees.rads.value))
     }
 }
@@ -131,7 +131,7 @@ public extension CGRect {
 public extension Array {
 
     ///Implementation defaults to ascending (<=)
-    public func sorted<PropertyType: Comparable>(
+    func sorted<PropertyType: Comparable>(
         by keyPath: KeyPath<Element, PropertyType>,
         comparison: (PropertyType, PropertyType) -> Bool = { $0 <= $1 }
     ) -> Array {

@@ -8,7 +8,7 @@ public struct Processor2 {
     private var referenceReport: FaceReport!
     private let referenceSize: CGSize
 
-    public init(referenceImage: NSImage) {
+    public init(referenceImage: NSImage, comparisonType: ImageReportComparison.ComparisonType = .eyesCenters) {
         self.referenceImage = referenceImage
         self.referenceCIImage = referenceImage.ciImage
         self.referenceSize = referenceImage.size

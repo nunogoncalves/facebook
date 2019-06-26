@@ -2,7 +2,7 @@ import Cocoa
 
 public extension Array where Element == CGPoint {
 
-    public var bezierPath: NSBezierPath {
+    var bezierPath: NSBezierPath {
 
         let bezierPath = NSBezierPath()
 
@@ -44,7 +44,7 @@ public extension Array where Element == CGPoint {
         return sum / 2
     }
 
-    public var centroid: CGPoint {
+    var centroid: CGPoint {
 
         let _area = self.area
 

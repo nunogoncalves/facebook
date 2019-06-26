@@ -1,6 +1,13 @@
 import Foundation
 import Cocoa
 
+public enum Person: String {
+    case alice = "Alice"
+    case Bianca = "Bianca"
+    case katrina = "Katrina"
+    case nuno = "Nuno"
+}
+
 public let playgroundDirectory = Bundle.main.url(forResource: "token", withExtension: "txt")!
     .resolvingSymlinksInPath()
     .deletingLastPathComponent()
@@ -13,11 +20,13 @@ public let refImage = NSImage(
         .first { $0.lastPathComponent == "reference.jpg" }!
 )!
 
-public let refImageBianca = NSImage(
-    contentsOf: FileManager.default
+public func refImage(for person: Person) -> NSImage {
+    return NSImage(
+        contentsOf: FileManager.default
         .images(in: playgroundDirectory)
-        .first { $0.lastPathComponent == "referenceBianca.jpg" }!
+        .first { $0.lastPathComponent == "reference\(person.rawValue).jpg" }!
     )!
+}
 
 
 extension FileManager {

@@ -23,7 +23,7 @@ public struct FaceReport {
 
 public extension FaceReport {
 
-    public init(
+    init(
         imageSize: CGSize,
         leftEyePoints: [CGPoint],
         rightEyePoints: [CGPoint],
@@ -68,7 +68,7 @@ func percent(_ x: Any) -> String {
 
 public extension FaceReport {
 
-    public var description: String {
+    var description: String {
 
         return """
         Pupils:
@@ -95,7 +95,7 @@ public extension FaceReport {
 
 public extension FaceReport {
 
-    public func old_describeComparison(against anotherReport: FaceReport) {
+    func old_describeComparison(against anotherReport: FaceReport) {
 
         print("Center between eyes:")
         print("   reference: ", self.eyesMiddlePoint, "\n   against:   ", anotherReport.eyesMiddlePoint)
@@ -117,7 +117,7 @@ public extension FaceReport {
         print("Against image's size is \(eyesPupulsRatio * 100) % of the first")
     }
 
-    public func describeComparison(against otherReport: FaceReport) {
+    func describeComparison(against otherReport: FaceReport) {
         //
         //        let wDelta = (self.imageSize.width - otherReport.imageSize.width) / 2
         //        let hDelta = (self.imageSize.height - otherReport.imageSize.height) / 2
@@ -157,10 +157,10 @@ public extension FaceReport {
         print("Angle difference: ", "\n   \(abs(self.eyesAngle.value - otherReport.eyesAngle.value))")
     }
 
-    public func compare(
+    func compare(
         against otherReport: FaceReport,
         comparing eyesDistanceType: ImageReportComparison.ComparisonType
-        ) -> ImageReportComparison {
+    ) -> ImageReportComparison {
 
         let eyesPupulsRatio: CGFloat
 

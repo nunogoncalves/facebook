@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='macos' executeOnSourceChanges='false'>
+<playground version='6.0' target-platform='macos'>
     <pages>
         <page name='1-LoadingAndSavingFiles'/>
         <page name='2-Rotation'/>
@@ -15,6 +15,7 @@
         <page name='11-TestsWithoutResizeNuno'/>
         <page name='12-TextToImage'/>
         <page name='13-Bianca'/>
-        <page name='14-Dropbox'/>
+        <page name='14-Alice'/>
+        <page name='15 - DrawingBezierPaths'/>
     </pages>
 </playground>

@@ -4,21 +4,21 @@ import Quartz
 
 public extension NSImage {
 
-    public var cgImage: CGImage {
+    var cgImage: CGImage {
         return self.cgImage(forProposedRect: nil, context: nil, hints: nil)!
     }
 
-    public var ciImage: CIImage { return CIImage(data: tiffRepresentation!)! }
+    var ciImage: CIImage { return CIImage(data: tiffRepresentation!)! }
 
-    public func jpgWrite(to url: URL, options: Data.WritingOptions = .atomic) throws {
+    func jpgWrite(to url: URL, options: Data.WritingOptions = .atomic) throws {
         try data(ofType: .jpeg, compression: 0.3)?.write(to: url, options: options)
     }
 
-    public func pngWrite(to url: URL, options: Data.WritingOptions = .atomic) throws {
+    func pngWrite(to url: URL, options: Data.WritingOptions = .atomic) throws {
         try data(ofType: .png, compression: 0.3)?.write(to: url, options: options)
     }
 
-    public func data(ofType type: NSBitmapImageRep.FileType, compression: Float = 1) -> Data? {
+    func data(ofType type: NSBitmapImageRep.FileType, compression: Float = 1) -> Data? {
 
         guard let tiffRepresentation = tiffRepresentation,
             let bitmapImage = NSBitmapImageRep(data: tiffRepresentation)
@@ -45,7 +45,7 @@ public extension NSImage {
         )
     }
 
-    public func rotatedUsingIKImageView(_ angle: Measurement<UnitAngle>) -> NSImage {
+    func rotatedUsingIKImageView(_ angle: Measurement<UnitAngle>) -> NSImage {
 
         var imageRect = CGRect(origin: .zero, size: size)
 
@@ -66,7 +66,7 @@ public extension NSImage {
         return image
     }
 
-    public func rotatedUsingCIImage(_ degrees: Measurement<UnitAngle>) -> NSImage? {
+    func rotatedUsingCIImage(_ degrees: Measurement<UnitAngle>) -> NSImage? {
 
         let ciImage = CIImage(data: self.tiffRepresentation!)!
         //https://developer.apple.com/library/archive/documentation/GraphicsImaging/Reference/CoreImageFilterReference/index.html#//apple_ref/doc/filter/ci/CIStraightenFilter
@@ -84,7 +84,7 @@ public extension NSImage {
         return nsImage
     }
 
-    public func zoomedPage1(by zoom: Double) -> NSImage {
+    func zoomedPage1(by zoom: Double) -> NSImage {
 
         let cgFloatZoom = CGFloat(zoom)
         let frame = size.times(zoom).framed
@@ -98,11 +98,19 @@ public extension NSImage {
                 context: nil,
                 hints: nil
             )!
-            .draw(in: frame.offsetBy(dx: dx, dy: dy))
+            .draw(
+                in: frame.offsetBy(dx: dx, dy: dy),
+                from: .zero,
+                operation: .copy,
+                fraction: 0.5,
+                respectFlipped: true,
+                hints: nil
+            )
+//            .draw(in: frame.offsetBy(dx: dx, dy: dy))
         }
     }
 
-    public func resized(to targetSize: NSSize) -> NSImage? {
+    func resized(to targetSize: NSSize) -> NSImage? {
 
         let frame = NSRect(origin: .zero, size: targetSize)
 
@@ -116,7 +124,7 @@ public extension NSImage {
         return image
     }
 
-    public func resizeMaintainingAspectRatio(to targetSize: NSSize) -> NSImage? {
+    func resizeMaintainingAspectRatio(to targetSize: NSSize) -> NSImage? {
 
         let testSize = self.size
 
@@ -129,7 +137,7 @@ public extension NSImage {
 
 public extension CIImage {
 
-    public func nsImage(sized size: CGSize) -> NSImage {
+    func nsImage(sized size: CGSize) -> NSImage {
 
         let representation = NSCIImageRep(ciImage: self)
         let nsImage = NSImage(size: size.devided(2))
@@ -137,7 +145,7 @@ public extension CIImage {
         return nsImage
     }
 
-    public func blurred(withRadius radius: Int) -> CIImage {
+    func blurred(withRadius radius: Int) -> CIImage {
 
         return applyingFilter("CIGaussianBlur", parameters: [kCIInputRadiusKey: radius])
     }
