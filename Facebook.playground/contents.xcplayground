@@ -17,5 +17,6 @@
         <page name='13-Bianca'/>
         <page name='14-Alice'/>
         <page name='15 - DrawingBezierPaths'/>
+        <page name='16 - VideoFromImages'/>
     </pages>
 </playground>
