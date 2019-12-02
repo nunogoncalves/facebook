@@ -18,7 +18,7 @@ public struct Processor {
         self.referenceReport = refReport
     }
 
-    public func processed(_ image: NSImage) -> NSImage {
+    public func processed(_ image: NSImage, alpha: CGFloat) -> NSImage {
 
         let resizedImage = image.resizeMaintainingAspectRatio(to: referenceSize)!
 
@@ -29,7 +29,7 @@ public struct Processor {
             let comparison = imageReport.compare(against: self.referenceReport, comparing: .pupils)
 
             var resizedAndZoomed = resizedImage
-                .zoomedPage1(by: Double(comparison.secondToFirstImageRatio))
+                .zoomedPage1(by: Double(comparison.secondToFirstImageRatio), alpha: alpha)
                 .ciImage
                 .composited(over: self.referenceCIImage.blurred(withRadius: 20))
                 .cropped(to: self.referenceSize.framed)

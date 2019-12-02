@@ -8,7 +8,10 @@ public struct Processor2 {
     private var referenceReport: FaceReport!
     private let referenceSize: CGSize
 
-    public init(referenceImage: NSImage, comparisonType: ImageReportComparison.ComparisonType = .eyesCenters) {
+    public init(
+        referenceImage: NSImage,
+        comparisonType: ImageReportComparison.ComparisonType = .eyesCenters
+    ) {
         self.referenceImage = referenceImage
         self.referenceCIImage = referenceImage.ciImage
         self.referenceSize = referenceImage.size
@@ -18,7 +21,7 @@ public struct Processor2 {
         self.referenceReport = refReport
     }
 
-    public func processed(_ image: NSImage) -> NSImage {
+    public func processed(_ image: NSImage, alpha: CGFloat) -> NSImage {
 
         var imageReport: FaceReport!
 
@@ -26,11 +29,13 @@ public struct Processor2 {
 
         print(referenceReport.imageSize)
         print(imageReport.imageSize)
-        let comparison = imageReport.compare(against: referenceReport, comparing: .eyesCenters)
+        let comparison = imageReport.compare(against: referenceReport, comparing: .pupils)
 //        imageReport.describeComparison(against: referenceReport)
 
+        print(#function)
+        print("comparison.secondToFirstImageRatio \(Double(comparison.secondToFirstImageRatio))")
         let zoomed = image
-            .zoomedPage1(by: Double(comparison.secondToFirstImageRatio))
+            .zoomedPage1(by: Double(comparison.secondToFirstImageRatio), alpha: alpha)
             .ciImage
             .cropped(to: image.size.framed)
 

@@ -45,6 +45,7 @@ public extension FaceReport {
         self.eyesMiddlePoint = midPoint(between: leftEyePoints.centroid, and: rightEyePoints.centroid)
         self.pupilsMiddlePoint = midPoint(between: leftPupilPoint, and: rightPupilPoint)
 
+        print("left pupil", leftPupilPoint, "right pupil", rightPupilPoint)
         self.distanceBetweenEyesPupils = distance(between: leftPupilPoint, and: rightPupilPoint)
         self.distanceBetweenEyesCentroid = distance(between: leftEyePoints.centroid, and: rightEyePoints.centroid)
     }

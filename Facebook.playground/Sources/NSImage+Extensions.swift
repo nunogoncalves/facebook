@@ -84,7 +84,7 @@ public extension NSImage {
         return nsImage
     }
 
-    func zoomedPage1(by zoom: Double) -> NSImage {
+    func zoomedPage1(by zoom: Double, alpha: CGFloat) -> NSImage {
 
         let cgFloatZoom = CGFloat(zoom)
         let frame = size.times(zoom).framed
@@ -102,7 +102,7 @@ public extension NSImage {
                 in: frame.offsetBy(dx: dx, dy: dy),
                 from: .zero,
                 operation: .copy,
-                fraction: 0.5,
+                fraction: alpha,
                 respectFlipped: true,
                 hints: nil
             )

@@ -3,7 +3,7 @@ import Cocoa
 import AppKit
 
 //let person = Person.nuno
-let person = Person.alice
+let person = Person.nuno
 let refImagePerson = refImage(for: person)
 
 let destinationURL = playgroundDirectory.appendingPathComponent("results\(person.rawValue)/?")
@@ -12,7 +12,7 @@ let imagesURLs = FileManager.default
     .sorted(by: \.lastPathComponent)
 
 var refRep: FaceReport!
-Analyser(image: refImagePerson) { report in print(report.description); refRep = report }
+Analyser(image: refImagePerson) { report in /*print(report.description); */ refRep = report }
 
 let processor = Processor2(referenceImage: refImagePerson, comparisonType: .pupils)
 
@@ -45,14 +45,14 @@ for url in imagesURLs {
     let image = NSImage(contentsOf: url)!
 
     let rep = Analyser(image: image) { report in
-        print(report.description)
+//        print(report.description)
 
         print("!!!")
 
-        report.describeComparison(against: refRep)
+//        report.describeComparison(against: refRep)
     }
 
-    let processedImage = processor.processed(image)
+    let processedImage = processor.processed(image, alpha: 1)
 
     var name = url.lastPathComponent
     let index = (name.range(of: " - ")!.lowerBound)
